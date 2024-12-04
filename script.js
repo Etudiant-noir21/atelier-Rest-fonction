@@ -4,13 +4,15 @@ const taskList = document.getElementById('taskList')
 
 window.onload = ()=>{
     getTask()
+    // fusionDeTaches('Aller en Atelier',"suivre les tache","etre a jour")
 }
 addTaskBtn.addEventListener('click',(event)=>{
     
 event.preventDefault()
 createElement(taskInput.value)
 saveTask(taskInput.value)
-Rest('Aller en Atelier',"suivre les tache","etre a jour")
+
+fusionDeTaches(Rest('Aller en Atelier',"suivre les tache","etre a jour"))
 taskInput.value = ''
 })
 
@@ -52,4 +54,17 @@ function Rest(...variadique){
         taskList.appendChild(li)
     })
 return variadique
+}
+
+// Spread Operator
+function fusionDeTaches(...variadique){
+
+    
+    let save = JSON.parse(localStorage.getItem('taches'))||[]
+
+    let taches = [...save,...variadique]
+    console.log(taches)
+    localStorage.setItem('taches',JSON.stringify(taches))
+
+   
 }
